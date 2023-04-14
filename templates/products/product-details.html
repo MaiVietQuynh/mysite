@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Product Details | E-Shopper{% endblock %}
+{% block content %}
+
+
+	
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="left-sidebar">
+						<h2>Category</h2>
+						<div class="panel-group category-products" id="accordian"><!--category-productsr-->
+							
+							{% for cago in category %}
+	
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title"><a href="/products/category/{{cago.id}}">{{cago.name}}</a></h4>
+								</div>
+							</div>
+	
+							{% endfor %}
+						
+							
+						</div><!--/category-products-->
+					
+					
+					
+						
+						<div class="shipping text-center"><!--shipping-->
+							<img src="{% static '/images/home/shipping.jpg' %}" alt="" />
+						</div><!--/shipping-->
+					
+					</div>
+				</div>
+				
+				<div class="col-sm-9 padding-right">
+					<div class="product-details"><!--product-details-->
+						<div class="col-sm-5">
+					
+							<div id="similar-product" class="carousel slide" data-ride="carousel">
+								  <!-- Wrapper for slides -->
+								    <div class="carousel-inner" >
+										
+										
+										<div class="item active carousel-item" >
+											<img class="d-block w-100" style=" height: 300px" src={{product.img.url}} alt="">
+										</div>
+										{% for image1 in images %}
+										<div  class="item carousel-item" >
+											 
+											<img class="d-block w-100" style=" height: 300px"  src={{image1.img.url}} alt="">
+										  	 
+										</div>
+										{%endfor%}
+								
+										
+									</div>
+
+								  <!-- Controls -->
+								  <a class="left item-control" href="#similar-product" data-slide="prev">
+									<i class="fa fa-angle-left"></i>
+								  </a>
+								  <a class="right item-control" href="#similar-product" data-slide="next">
+									<i class="fa fa-angle-right"></i>
+								  </a>
+							</div>
+
+						</div>
+						<div class="col-sm-7">
+							<div class="product-information"><!--/product-information-->
+								<h2>{{product.name}}</h2>
+								
+								<h2>{{product.price|floatformat:3}} đ</h2>
+								
+
+							
+								<p><b>Availabe:</b> {{product.quantity}} products</p>
+								<p><b>Condition:</b> New</p>
+								<p><b>Brand:</b> E-SHOPPER</p>
+								{%if user.is_staff %}
+								
+								{%else%}	
+								<form method="POST" action="" enctype="multipart/form-data">
+									{%csrf_token%}
+									{% comment %} {{form.as_p}} {% endcomment %}	
+									<input type="button" value="+" class="cart_quantity_up" onclick="add()">
+		
+									<input id="quantity" class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
+									<input type="button" value="-" class="cart_quantity_down" onclick="minus()" >
+
+									<p><p>
+								   <button class="btn btn-default add-to-cart" type="submit"value="submit"><i class="fa fa-shopping-cart">Add to cart</i></button>
+							   </form>
+								{%endif%}
+
+								{%if user.is_staff %}
+									<a href="/products/update-product/{{product.id}}" class="btn btn-default add-to-cart" >Edit</a>
+									<a href="/products/delete-product/{{product.id}}" class="btn btn-default add-to-cart" >Delete</a>
+								{%else%}	
+								{%endif%}
+								
+								
+							</div><!--/product-information-->
+						</div>
+					</div><!--/product-details-->
+					
+					<div class="category-tab shop-details-tab"><!--category-tab-->
+						<div class="col-sm-12">
+							<ul class="nav nav-tabs">
+								<li><a href="#details" data-toggle="tab">Details</a></li>
+								<li><a href="#companyprofile" data-toggle="tab">Company Profile</a></li>
+						
+							</ul>
+						</div>
+						<div class="tab-content">
+							<div class="tab-pane fade" id="details" >
+							<pre style="font-family:'Roboto', sans-serif;">{{product.description}}</pre>
+								
+							
+							</div>
+							
+							<div class="tab-pane fade" id="companyprofile" >
+								<div class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
+												<img src="images/home/gallery1.jpg" alt="" />
+												<h2>$56</h2>
+												<p>Easy Polo Black Edition</p>
+												<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
+												<img src="images/home/gallery3.jpg" alt="" />
+												<h2>$56</h2>
+												<p>Easy Polo Black Edition</p>
+												<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
+												<img src="images/home/gallery2.jpg" alt="" />
+												<h2>$56</h2>
+												<p>Easy Polo Black Edition</p>
+												<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
+												<img src="images/home/gallery4.jpg" alt="" />
+												<h2>$56</h2>
+												<p>Easy Polo Black Edition</p>
+												<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+						
+						
+							
+						</div>
+					</div><!--/category-tab-->
+
+					
+
+					
+				</div>
+			</div>
+		</div>
+	</section>
+	<script>
+		function add()
+		{
+			var value = parseInt(document.getElementById('quantity').value, 10);
+			value = isNaN(value) ? 0 : value;
+			value++;
+			document.getElementById('quantity').value = value;
+		}
+		function minus()
+		{
+			var value = parseInt(document.getElementById('quantity').value, 10);
+			value = isNaN(value) ? 0 : value;
+			if(value>1){
+				value--;
+			
+			}
+			document.getElementById('quantity').value = value;
+			
+		}
+	</script>	
+{%endblock%}
